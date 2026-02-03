@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4 text-center">Register for the Event</h2>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="id_name">Full Name</label>
+                    {{ form.name }}
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                </div>
+
+                <!-- Event -->
+                <div class="form-group">
+                    <label for="id_event">Select Event</label>
+                    {{ form.event }}
+                </div>
+
+                <!-- Upload Payment Screenshot -->
+                <div class="form-group">
+                    <label for="id_payment_screenshot">Upload Payment Screenshot</label>
+                    {{ form.payment_screenshot }}
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-success btn-block mt-4">I have paid</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

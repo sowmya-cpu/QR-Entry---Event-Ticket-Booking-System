@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Bookings for My Events{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>📦 Bookings for Events You Created</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Participant</th>
+                <th>Ticket ID</th>
+                <th>Status</th>
+                <th>Booking Time</th>
+                <th>Payment Screenshot</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.event.title }}</td>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.ticket_id }}</td>
+                <td>{{ booking.status }}</td>
+                <td>{{ booking.booking_time|date:"d M Y, h:i A" }}</td>
+                <td>
+                    {% if booking.payment_screenshot %}
+                        <img src="{{ booking.payment_screenshot.url }}" alt="Payment Screenshot" style="max-width: 150px; height: auto;">
+                    {% else %}
+                        No screenshot uploaded
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No bookings found for your events.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

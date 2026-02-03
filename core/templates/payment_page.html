@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}UPI Payment{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Pay to Organiser</h2>
+    <p><strong>Event:</strong> {{ event.name }}</p>
+    <p><strong>Amount:</strong> ₹{{ event.price }}</p>
+    <p><strong>UPI ID:</strong> {{ event.upi_id }}</p>
+
+  
+    
+    <hr>
+
+    <h5>Scan QR to Pay:</h5>
+    {% if booking.qr_code_path %}
+        <img src="/media/{{ booking.qr_code_path }}" alt="QR Code" width="200" height="200">
+    {% endif %}
+
+    <br><br>
+    <form method="POST" action="{% url 'payment_success' booking.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+   
+
+
+    <div class="form-group">
+        <label for="screenshot">Upload Screenshot:</label>
+        <input type="file" name="payment_screenshot" class="form-control" required>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">✅ I have completed payment</button>
+
+
+   
+</form>
+
+</div>
+{% endblock %}
